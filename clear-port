@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Kills all processes running on the provided port
+#
+# clear-port 3000
+
+if [ -n "$1" ]; then
+  port_num=$1
+  port_num_pids="$(lsof -ti4TCP:"$port_num")"
+  if [ -n "$port_num_pids" ]; then
+    for pid in $port_num_pids; do
+      kill "$pid"
+    done
+  else
+    echo "No processes found on port $1"
+  fi
+else
+  echo >&2 "Usage: clear-port port-number"
+  exit 1
+fi
