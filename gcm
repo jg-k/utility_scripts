@@ -1,0 +1,14 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then 
+  read -p "Enter a commit message: " commit_message
+else
+  commit_message="$*"
+fi
+
+if [ -z "$commit_message" ]; then
+  echo "Error, commit message can't be empty"
+  exit 1
+fi
+
+git commit -m "$commit_message"
